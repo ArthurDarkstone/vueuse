@@ -45,6 +45,10 @@ const sortMethod = computed<'category' | 'name' | 'updated' | null>({
   get: () => isMounted.value ? query.sort : null,
   set: val => query.sort = val,
 })
+const viewMethod = computed<'list' | 'demo card'>({
+  get: () => isMounted.value ? query.view : 'list',
+  set: val => query.view = val,
+})
 
 const showCategory = computed(() => !search.value && (!sortMethod.value || sortMethod.value === 'category'))
 

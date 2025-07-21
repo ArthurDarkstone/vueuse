@@ -1,11 +1,11 @@
-import type { WatchCallback, WatchSource, WatchStopHandle } from 'vue'
+import type { WatchCallback, WatchHandle, WatchSource } from 'vue'
 import type { MapOldSources, MapSources, Pausable, PausableFilterOptions } from '../utils'
 import type { WatchWithFilterOptions } from '../watchWithFilter'
 import { pausableFilter } from '../utils'
 import { watchWithFilter } from '../watchWithFilter'
 
 export interface WatchPausableReturn extends Pausable {
-  stop: WatchStopHandle
+  stop: WatchHandle
 }
 
 export type WatchPausableOptions<Immediate> = WatchWithFilterOptions<Immediate> & PausableFilterOptions

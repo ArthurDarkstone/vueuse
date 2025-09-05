@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "electron": ">=9.0.0",
-    "vue": "^3.5.0"
+    "vue": "catalog:peer"
   },
   "dependencies": {
     "@vueuse/shared": "workspace:*"

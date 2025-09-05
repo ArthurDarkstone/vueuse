@@ -40,6 +40,6 @@
     "test:attw": "attw --pack --config-path ../../.attw.json ."
   },
   "peerDependencies": {
-    "vue": "^3.5.0"
+    "vue": "catalog:peer"
   }
 }

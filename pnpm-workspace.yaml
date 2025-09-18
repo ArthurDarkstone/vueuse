@@ -114,5 +114,11 @@ catalogs:
     '@nuxt/kit': ^4.0
   conflicts_integrations_h4_0_:
     '@nuxt/kit': ^4.0.
+  conflicts_integrations_catalog:
+    electron: catalog
+  conflicts_integrations_:
+    electron: ''
+  conflicts_integrations_2:
+    electron: '2'
 neverBuiltDependencies:
   - electron

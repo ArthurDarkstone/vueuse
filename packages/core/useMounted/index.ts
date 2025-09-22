@@ -1,3 +1,6 @@
+import type {
+  ComponentInternalInstance,
+} from 'vue'
 import {
   getCurrentInstance,
   // eslint-disable-next-line no-restricted-imports
@@ -12,10 +15,11 @@ import {
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function useMounted() {
+export function useMounted(target?: ComponentInternalInstance | undefined | null) {
   const isMounted = shallowRef(false)
 
-  const instance = getCurrentInstance()
+  const instance = target || getCurrentInstance()
+
   if (instance) {
     onMounted(() => {
       isMounted.value = true

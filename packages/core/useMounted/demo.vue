@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import type { ComponentInternalInstance } from 'vue'
 import { useMounted, useToggle } from '@vueuse/core'
-import { defineComponent, getCurrentInstance, h, shallowRef } from 'vue'
+import { defineComponent, getCurrentInstance, h } from 'vue'
 
 const [toggle] = useToggle(false)
 
-const customInstance = shallowRef<ComponentInternalInstance | null>(null)
+let customInstance = null as ComponentInternalInstance | null
 
 const Comp1 = defineComponent({
 
   setup() {
     const instance = getCurrentInstance()
 
-    customInstance.value = instance
+    customInstance = instance
 
     return {}
   },
@@ -22,7 +22,7 @@ const Comp1 = defineComponent({
   },
 })
 
-const isMounted = useMounted(customInstance.value)
+const isMounted = useMounted(customInstance)
 </script>
 
 <template>

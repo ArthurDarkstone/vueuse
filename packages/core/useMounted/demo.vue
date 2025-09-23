@@ -26,13 +26,12 @@ const isMounted = useMounted(customInstance)
 </script>
 
 <template>
-  <Comp1 />
+  <div>
+    <p>Component is mounted: {{ isMounted }}</p>
+    <Comp1 v-if="toggle" />
+  </div>
 
   <button @click="toggle = !toggle">
     Toggle Mounted
   </button>
-
-  <p>
-    isMounted: {{ isMounted }}
-  </p>
 </template>

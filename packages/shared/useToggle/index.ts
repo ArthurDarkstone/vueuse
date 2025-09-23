@@ -1,9 +1,10 @@
 import type { MaybeRef, MaybeRefOrGetter, Ref, ShallowRef } from 'vue'
 import { isRef, shallowRef, toValue } from 'vue'
+import { makeDestructurable } from '../makeDestructurable'
 
 export type ToggleFn = (value?: boolean) => void
 
-export type UseToggleReturn = [ShallowRef<boolean>, ToggleFn] | ToggleFn
+export type UseToggleReturn = [ShallowRef<boolean>, ToggleFn] & { value: ShallowRef<boolean>, toggle: ToggleFn } | ToggleFn
 
 export interface UseToggleOptions<Truthy, Falsy> {
   truthyValue?: MaybeRefOrGetter<Truthy>
@@ -11,7 +12,7 @@ export interface UseToggleOptions<Truthy, Falsy> {
 }
 
 export function useToggle<Truthy, Falsy, T = Truthy | Falsy>(initialValue: Ref<T>, options?: UseToggleOptions<Truthy, Falsy>): (value?: T) => T
-export function useToggle<Truthy = true, Falsy = false, T = Truthy | Falsy>(initialValue?: T, options?: UseToggleOptions<Truthy, Falsy>): [ShallowRef<T>, (value?: T) => T]
+export function useToggle<Truthy = true, Falsy = false, T = Truthy | Falsy>(initialValue?: T, options?: UseToggleOptions<Truthy, Falsy>): [ShallowRef<T>, (value?: T) => T] & { value: ShallowRef<T>, toggle: (value?: T) => T }
 
 /**
  * A boolean ref with a toggler
@@ -49,8 +50,13 @@ export function useToggle(
     }
   }
 
-  if (valueIsRef)
+  if (valueIsRef) {
     return toggle
-  else
-    return [_value, toggle] as const
+  }
+  else {
+    return makeDestructurable(
+      { value: _value, toggle } as const,
+      [_value, toggle] as const,
+    )
+  }
 }

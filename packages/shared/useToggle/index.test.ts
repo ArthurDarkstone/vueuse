@@ -11,8 +11,9 @@ describe('useToggle', () => {
     const result = useToggle()
     const [value, toggle] = result
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBe(2)
+    // Check .value and .toggle properties - this is the main enhancement
+    expect(result.value).toBe(value)
+    expect(result.toggle).toBe(toggle)
 
     expect(typeof toggle).toBe('function')
     expect(isRef(value)).toBe(true)
@@ -23,8 +24,9 @@ describe('useToggle', () => {
     const result = useToggle(true)
     const [value, toggle] = result
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBe(2)
+    // Check .value and .toggle properties - this is the main enhancement
+    expect(result.value).toBe(value)
+    expect(result.toggle).toBe(toggle)
 
     expect(typeof toggle).toBe('function')
     expect(isRef(value)).toBe(true)
@@ -93,5 +95,31 @@ describe('useToggle', () => {
 
     expect(toggle('ON')).toBe('ON')
     expect(toValue(status)).toBe('ON')
+  })
+
+  it('should set value through .value', () => {
+    const result = useToggle()
+    const [value, toggle] = result
+
+    expect(toValue(value)).toBe(false)
+
+    // Set value directly through .value
+    value.value = true
+    expect(toValue(value)).toBe(true)
+
+    value.value = false
+    expect(toValue(value)).toBe(false)
+
+    // Test with initial true value
+    const result2 = useToggle(true)
+    const [value2, toggle2] = result2
+
+    expect(toValue(value2)).toBe(true)
+
+    value2.value = false
+    expect(toValue(value2)).toBe(false)
+
+    value2.value = true
+    expect(toValue(value2)).toBe(true)
   })
 })
